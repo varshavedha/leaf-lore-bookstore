@@ -74,8 +74,9 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
-
+          </button>
         </div>
+
       </div>
 
       {open && (
