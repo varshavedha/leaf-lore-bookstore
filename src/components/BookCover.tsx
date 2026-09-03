@@ -31,7 +31,7 @@ export function BookCover({ book, className }: { book: Book; className?: string 
         </div>
         <div>
           <div
-            className="font-display text-[clamp(0.85rem,1.55vw,1.35rem)] leading-[1.15] font-semibold text-balance"
+            className="font-display line-clamp-4 text-[clamp(0.8rem,1.5vw,1.35rem)] leading-[1.15] font-semibold break-words hyphens-auto text-balance"
             style={{ color: ink }}
           >
             {book.title}
@@ -42,14 +42,14 @@ export function BookCover({ book, className }: { book: Book; className?: string 
             aria-hidden="true"
           />
           <div
-            className="mt-[6%] text-[0.6rem] tracking-[0.14em] uppercase opacity-80 sm:text-[0.68rem]"
+            className="mt-[6%] line-clamp-2 text-[0.6rem] tracking-[0.14em] uppercase opacity-80 sm:text-[0.68rem]"
             style={{ color: ink }}
           >
             {book.author}
           </div>
         </div>
         <div
-          className="text-[0.55rem] tracking-[0.2em] uppercase opacity-60"
+          className="truncate text-[0.55rem] tracking-[0.2em] uppercase opacity-60"
           style={{ color: ink }}
         >
           {book.genre}
