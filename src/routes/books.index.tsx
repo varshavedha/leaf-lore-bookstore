@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { books, genres } from "@/lib/books";
 
+type SortOption = "featured" | "price-asc" | "price-desc" | "rating" | "title";
+
 type BookSearch = {
-  q?: string;
-  genre?: string;
-  sort?: "featured" | "price-asc" | "price-desc" | "rating" | "title";
-  under?: number;
+  q?: string | undefined;
+  genre?: string | undefined;
+  sort?: SortOption | undefined;
+  under?: number | undefined;
 };
 
 const sorts = [
@@ -24,12 +26,12 @@ const priceBands = [15, 20, 25, 35] as const;
 
 export const Route = createFileRoute("/books/")({
   validateSearch: (search: Record<string, unknown>): BookSearch => {
-    const sort = String(search.sort ?? "");
-    const under = Number(search.under);
+    const sort = String(search["sort"] ?? "");
+    const under = Number(search["under"]);
     return {
-      q: search.q ? String(search.q) : undefined,
-      genre: genres.includes(String(search.genre)) ? String(search.genre) : undefined,
-      sort: sorts.some((s) => s.value === sort) ? (sort as BookSearch["sort"]) : undefined,
+      q: search["q"] ? String(search["q"]) : undefined,
+      genre: genres.includes(String(search["genre"])) ? String(search["genre"]) : undefined,
+      sort: sorts.some((s) => s.value === sort) ? (sort as SortOption) : undefined,
       under: Number.isFinite(under) && under > 0 ? under : undefined,
     };
   },
@@ -53,10 +55,13 @@ export const Route = createFileRoute("/books/")({
 
 function BooksPage() {
   const { q = "", genre, sort = "featured", under } = Route.useSearch();
-  const navigate = useNavigate({ from: "/books" });
+  const navigate = useNavigate({ from: "/books/" });
 
   const update = (patch: BookSearch) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }), resetScroll: false });
+    navigate({
+      search: (prev: BookSearch) => ({ ...prev, ...patch }),
+      resetScroll: false,
+    });
 
   const query = q.trim().toLowerCase();
   let results = books.filter((book) => {
@@ -207,7 +212,7 @@ function BooksPage() {
               <select
                 id="sort"
                 value={sort}
-                onChange={(e) => update({ sort: e.target.value as BookSearch["sort"] })}
+                onChange={(e) => update({ sort: e.target.value as SortOption })}
                 className="focus-ring rounded-sm border border-input bg-card px-3 py-1.5 text-sm"
               >
                 {sorts.map((s) => (

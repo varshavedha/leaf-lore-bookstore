@@ -23,7 +23,7 @@ const palettes = [
   { spine: "#25453f", face: "#345c53", ink: "#eff0e0" },
 ];
 
-const p = (i: number) => palettes[i % palettes.length];
+const p = (i: number) => palettes[i % palettes.length]!;
 
 export const genres = [
   "Literary Fiction",

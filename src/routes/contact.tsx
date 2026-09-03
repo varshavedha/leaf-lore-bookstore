@@ -51,7 +51,7 @@ function ContactPage() {
       found.message = "A little more detail helps — at least 10 characters.";
     setErrors(found);
     if (Object.keys(found).length > 0) {
-      document.getElementById(Object.keys(found)[0])?.focus();
+      document.getElementById(Object.keys(found)[0] ?? "")?.focus();
       return;
     }
     setSent(true);

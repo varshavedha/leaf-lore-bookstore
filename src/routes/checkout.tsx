@@ -79,8 +79,7 @@ function CheckoutPage() {
     const found = validate(values);
     setErrors(found);
     if (Object.keys(found).length > 0) {
-      const first = document.getElementById(Object.keys(found)[0]);
-      first?.focus();
+      document.getElementById(Object.keys(found)[0] ?? "")?.focus();
       return;
     }
     setOrder({
